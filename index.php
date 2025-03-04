@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .gallery-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 10px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+        }
+        .gallery-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .gallery-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        figure {
+            flex: 0 0 auto;
+            width: 150px;
+            text-align: center;
+            scroll-snap-align: center;
+            perspective: 500px;
+        }
+        .image-container {
+            display: inline-block;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        figure:hover .image-container {
+            transform: rotateY(var(--rotateX)) rotateX(var(--rotateY)) translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+        }
+        figcaption {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #bbb;
+        }
+    </style>
+    <script>
+        document.addEventListener("mousemove", (event) => {
+            document.querySelectorAll(".image-container").forEach(img => {
+                let rect = img.getBoundingClientRect();
+                let x = (event.clientX - rect.left) / rect.width - 0.5;
+                let y = (event.clientY - rect.top) / rect.height - 0.5;
+                img.style.setProperty('--rotateX', `${x * 15}deg`);
+                img.style.setProperty('--rotateY', `${-y * 15}deg`);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>My Friends Gallery</h1>
+    <div class="gallery-container">
+        <figure>
+            <div class="image-container">
+                <img src="images/ohsogleeby.jpeg" alt="" width="100%">
+                <img src="images/ohsogleeby2.png" alt="" width="100%">
+            </div>
+            <figcaption>Gleeby</figcaption>
+        </figure>
+        <figure>
+            <div class="image-container">
+                <img src="images/shadow.jpeg" alt="" width="100%">
+            </div>
+            <figcaption>Shadow</figcaption>
+        </figure>
+        <figure>
+            <div class="image-container">
+                <img src="images/shroomy.jpeg" alt="" width="100%">
+            </div>
+            <figcaption>Shroomy</figcaption>
+        </figure>
+        <figure>
+            <div class="image-container">
+                <img src="images/sift.webp" alt="" width="100%">
+            </div>
+            <figcaption>Sift</figcaption>
+        </figure>
+        <figure>
+            <div class="image-container">
+                <img src="images/em-gee.gif" alt="" width="100%">  
+                <img src="images/emgee2.webp" alt="" width="100%">
+            </div>
+            <figcaption>Em-Gee</figcaption>
+        </figure>
+        <figure>
+            <div class="image-container">
+                <img src="images/asho.jpeg" alt="" width="100%">
+            </div>
+            <figcaption>Asho</figcaption>
+        </figure>
+    </div>
+</body>
+</html>
